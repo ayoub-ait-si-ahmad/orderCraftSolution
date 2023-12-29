@@ -26,7 +26,7 @@
     <!-- DataSource configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/springApp"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springapp"/>
         <property name="username" value="root"/>
         <property name="password" value=""/>
     </bean>
@@ -46,7 +46,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.physical_naming_strategy">
                     org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
                 </prop>

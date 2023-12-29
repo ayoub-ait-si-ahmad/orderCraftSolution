@@ -84,3 +84,4 @@ nbdist/
 
 # Maven
 target/
+/.idea/*
