@@ -7,8 +7,9 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1>Add Item</h1>
-    <form action="#" th:action="@{/items/add}" th:object="${item}" method="post" class="form-group">
+    <h1 th:if="${item.itemID} == null">Add Item</h1>
+    <h1 th:if="${item.itemID} != null">Update Item</h1>
+    <form action="#" th:action="${item.itemID} == null ? @{/items/add} : @{/items/update/{itemID}(itemID=${item.itemID})}" th:object="${item}" method="post" class="form-group">
         <label for="itemName">Item Name:</label>
         <input type="text" id="itemName" th:field="*{itemName}" required class="form-control">
         <label for="itemDescription">Item Description:</label>
@@ -17,7 +18,7 @@
         <input type="number" id="itemPrice" th:field="*{itemPrice}" required class="form-control">
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" th:field="*{quantity}" required class="form-control">
-        <input type="submit" value="Add Item" class="btn btn-primary mt-3">
+        <input type="submit" value="Submit" class="btn btn-primary mt-3">
     </form>
 </div>
 </body>

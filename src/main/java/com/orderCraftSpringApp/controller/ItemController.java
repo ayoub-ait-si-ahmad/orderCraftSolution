@@ -5,9 +5,7 @@ import com.orderCraftSpringApp.service.interfaces.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +14,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+
     @Autowired
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
@@ -35,16 +34,27 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(Item item) {
+    public String addItem(@ModelAttribute Item item) {
         itemService.saveItem(item);
         return "redirect:/items";
     }
 
     @GetMapping("/update/{itemID}")
-    public String showUpdateItemForm(Model model) {
-        model.addAttribute("item", new Item());
+    public String showUpdateItemForm(@PathVariable Long itemID, Model model) {
+        Item item = itemService.findItemById(itemID);
+        model.addAttribute("item", item);
         return "/items/item_form";
     }
 
+    @PostMapping("/update/{itemID}")
+    public String updateItem(@ModelAttribute Item item, @PathVariable Long itemID) {
+        itemService.updateItem(itemID, item);
+        return "redirect:/items";
+    }
 
+    @PostMapping("/delete/{itemID}")
+    public String deleteItem(@PathVariable Long itemID) {
+        itemService.deleteItem(itemID);
+        return "redirect:/items";
+    }
 }

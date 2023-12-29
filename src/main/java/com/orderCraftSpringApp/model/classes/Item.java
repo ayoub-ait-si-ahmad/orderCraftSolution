@@ -32,7 +32,5 @@ public class Item {
     @Column(name="quantity")
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name="stockManagerID", nullable = false)
-    private Stock stock;
+ 
 }

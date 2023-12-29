@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Orders</h1>
+    <a th:href="@{/orders/add}" class="btn btn-success mb-2">Add Order</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Serial</th>
+            <th>Order Date</th>
+            <th>Order Status</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderID}"></td>
+            <td th:text="${order.orderSerial}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.orderStatus}"></td>
+            <td><a th:href="@{/orders/update/{orderID}(orderID=${order.orderID})}" class="btn btn-primary">Update</a></td>
+            <td>
+                <form th:action="@{/orders/delete/{orderID}(orderID=${order.orderID})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

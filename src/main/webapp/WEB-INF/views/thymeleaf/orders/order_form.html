@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 th:if="${order.orderID} == null">Add Order</h1>
+    <h1 th:if="${order.orderID} != null">Update Order</h1>
+    <form action="#" th:action="${order.orderID} == null ? @{/orders/add} : @{/orders/update/{orderID}(orderID=${order.orderID})}" th:object="${order}" method="post" class="form-group">
+        <label for="orderSerial">Order Serial:</label>
+        <input type="text" id="orderSerial" th:field="*{orderSerial}" required class="form-control">
+        <label for="orderDate">Order Date:</label>
+        <input type="date" id="orderDate" th:field="*{orderDate}" required class="form-control">
+        <label for="orderStatus">Order Status:</label>
+        <select id="orderStatus" th:field="*{orderStatus}" class="form-control">
+            <option value="PENDING">Pending</option>
+            <option value="SHIPPED">Shipped</option>
+            <option value="DELIVERED">Delivered</option>
+        </select>
+        <input type="submit" value="Submit" class="btn btn-primary mt-3">
+    </form>
+</div>
+</body>
+</html>

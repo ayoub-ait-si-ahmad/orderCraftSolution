@@ -8,6 +8,7 @@
 <body>
 <div class="container mt-5">
     <h1>Items</h1>
+    <a th:href="@{/items/add}" class="btn btn-success mb-2">Add Item</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -16,6 +17,8 @@
             <th>Description</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +28,12 @@
             <td th:text="${item.itemDescription}"></td>
             <td th:text="${item.itemPrice}"></td>
             <td th:text="${item.quantity}"></td>
+            <td><a th:href="@{/items/update/{itemID}(itemID=${item.itemID})}" class="btn btn-primary">Update</a></td>
+            <td>
+                <form th:action="@{/items/delete/{itemID}(itemID=${item.itemID})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

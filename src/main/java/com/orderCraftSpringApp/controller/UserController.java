@@ -24,13 +24,13 @@ public class UserController {
     String viewUsers(Model model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        return "users";
+        return "/users/users";
     }
 
     @GetMapping("/add")
     public String showAddUserForm(Model model) {
         model.addAttribute("user", new User());
-        return "user_form";
+        return "/users/user_form";
     }
 
     @PostMapping("/add")
@@ -44,7 +44,7 @@ public class UserController {
     public String showUpdateUserForm(@PathVariable Long userID, Model model) {
         User user = userService.findUserById(userID);
         model.addAttribute("user", user);
-        return "user_form";
+        return "/users/user_form";
     }
 
     @PostMapping("/update/{userID}")
@@ -57,12 +57,25 @@ public class UserController {
     public String showDeleteUserForm(@PathVariable Long userID, Model model) {
         User user = userService.findUserById(userID);
         model.addAttribute("user", user);
-        return "user_form";
+        return "/users/user_form";
     }
 
     @PostMapping("/delete/{userID}")
     public String deleteUser(@PathVariable Long userID) {
         userService.deleteUser(userID);
         return "redirect:/users";
+    }
+
+    //login
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+        User user = userService.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            // Login successful, redirect to user's home page
+            return "redirect:/users/home";
+        } else {
+            // Login failed, redirect back to login page
+            return "redirect:/login";
+        }
     }
 }
